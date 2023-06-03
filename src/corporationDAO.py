@@ -54,6 +54,7 @@ def update_company(company_id, new_nome_fantasia, new_telefone, new_cnpj, new_em
         # Check if the company was found
         if company:
             # Update the company attributes
+            
             company.nome_fantasia = new_nome_fantasia
             company.telefone = new_telefone
             company.cnpj = new_cnpj
@@ -115,3 +116,25 @@ def bring_company_by_id(company_id):
         return status
     
 #print(bring_company_by_id(15))
+#________________________________________________________________________________________________
+
+def insert_company(cnpj, nome_fantasia, telefone, email, id_administrador):
+    try:
+        # Cria uma nova instância da classe Empresa
+        nova_empresa = Empresa(cnpj=cnpj, nome_fantasia=nome_fantasia, telefone=telefone, email=email, id_administrador=id_administrador)
+
+        # Adiciona a nova empresa à sessão
+        session.add(nova_empresa)
+
+        # Commit para salvar a nova empresa no banco de dados
+        session.commit()
+
+        status = True
+        return status
+
+    except Exception as e:
+        status = False
+        return status
+
+# Exemplo de uso da função insert_company
+status = insert_company("12345678901234", "PETA", "123456789", "peta@abc.com", 1)
